@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Playlist Generator</title>
+  <link rel="stylesheet" href="looks.css">
+  
+</head>
+<body>
+  <div class="container">
+    <h1>AI Playlist Generator</h1>
+    <input type="text" id="songType" placeholder="Type of Song (e.g., Pop, Rock)" required>
+    <input type="text" id="artist" placeholder="Artist Name (optional)">
+    <textarea id="prompt" placeholder="Describe your playlist (e.g., upbeat songs for a road trip)" rows="3" required></textarea>
+    <button onclick="generatePlaylist()">Generate Playlist</button>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
