@@ -3,18 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Playlist Generator</title>
+  <title>Harmony - AI Playlist Generator</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap">
   <link rel="stylesheet" href="looks.css">
-  
 </head>
 <body>
+  <div class="background-texture"></div>
+  
   <div class="container">
-    <h1>AI Playlist Generator</h1>
-    <input type="text" id="songType" placeholder="Type of Song (e.g., Pop, Rock)" required>
-    <input type="text" id="artist" placeholder="Artist Name (optional)">
-    <textarea id="prompt" placeholder="Describe your playlist (e.g., upbeat songs for a road trip)" rows="3" required></textarea>
-    <button onclick="generatePlaylist()">Generate Playlist</button>
+    <div class="theme-toggle">
+      <input type="checkbox" id="toggle" class="toggle-input">
+      <label for="toggle" class="toggle-label">
+        <span class="sun">☀️</span>
+        <span class="moon">🌙</span>
+      </label>
+    </div>
+
+    <header class="header">
+      <h1>Harmony<span class="ai-badge">AI</span></h1>
+      <p class="subtitle">Craft Your Perfect Soundtrack</p>
+    </header>
+
+    <div class="form-container">
+      <div class="input-group">
+        <input type="text" id="genre" placeholder=" " class="form-input">
+        <label for="genre">Music Genre</label>
+        <div class="input-highlight"></div>
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="artist" placeholder=" " class="form-input">
+        <label for="artist">Artist Inspiration</label>
+        <div class="input-highlight"></div>
+      </div>
+
+      <div class="input-group">
+        <textarea id="mood" placeholder=" " class="form-input"></textarea>
+        <label for="mood">Describe Your Vibe</label>
+        <div class="input-highlight"></div>
+      </div>
+
+      <button class="generate-btn" onclick="generatePlaylist()">
+        <span class="btn-text">Generate Playlist</span>
+        <div class="spinner"></div>
+      </button>
+    </div>
   </div>
+
   <script src="app.js"></script>
 </body>
 </html>
