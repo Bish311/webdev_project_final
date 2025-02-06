@@ -5,6 +5,7 @@
     --background: #F5F5F5;    /* Light Grey */
     --text: #333333;          /* Dark Text */
     --surface: #FFFFFF;       /* White */
+    --bdrclr: rgba(40, 40, 43, 0.4);
   }
   
   [data-theme="dark"] {
@@ -12,6 +13,7 @@
     --text: #FFFFFF;          /* White Text */
     --surface: #2B2B2B;       /* Dark Surface */
     --accent: #404040;        /* Dark Accent */
+    --bdrclr: rgba(255,255,255,0.2);
   }
   
   * {
@@ -52,7 +54,7 @@
     max-width: 500px;
     margin: 2rem;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--bdrclr);
   }
   
   .header {
@@ -198,11 +200,48 @@
     align-items: center;
   }
   
-  .toggle-label .moon { display: none; }
-  .toggle-label .sun { display: inline-block; }
+  .theme-toggle {
+    position: fixed;
+    top: 45px;
+    right: 120px;
+    z-index: 1000;
+  }
   
-  [data-theme="dark"] .toggle-label .moon { display: inline-block; }
-  [data-theme="dark"] .toggle-label .sun { display: none; }
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--bdrclr);
+  }
+  
+  .toggle-label .sun,
+  .toggle-label .moon {
+    font-size: 1.5rem;
+    transition: opacity 0.3s ease;
+  }
+  
+  .toggle-label .moon {
+    display: none;
+  }
+  
+  [data-theme="dark"] .toggle-label .sun {
+    display: none;
+    
+  }
+  
+  [data-theme="dark"] .toggle-label .moon {
+    display: block;
+  }
+  
+  /* Keep existing toggle functionality */
+  .toggle-input {
+    display: none;
+  }
   
   @media (max-width: 480px) {
     .container {
