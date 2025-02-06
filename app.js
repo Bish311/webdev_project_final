@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Theme Toggle
     const toggle = document.getElementById('toggle');
     const body = document.body;
   
-    // Theme Management
     const savedTheme = localStorage.getItem('theme') || 'light';
     body.setAttribute('data-theme', savedTheme);
     toggle.checked = savedTheme === 'dark';
@@ -12,43 +12,72 @@ document.addEventListener('DOMContentLoaded', () => {
       body.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
     });
-  
-    // Input Animations
-    document.querySelectorAll('.form-input').forEach(input => {
-      input.addEventListener('focus', () => {
-        input.parentElement.classList.add('active');
-      });
-      
-      input.addEventListener('blur', () => {
-        if (!input.value) {
-          input.parentElement.classList.remove('active');
-        }
-      });
-    });
   });
   
   async function generatePlaylist() {
+    const genre = document.getElementById('genre').value;
+    const artist = document.getElementById('artist').value;
+    const mood = document.getElementById('mood').value;
+  
+    if (!genre && !artist && !mood) {
+      showError('Please fill in at least one field');
+      return;
+    }
+  
     const btn = document.querySelector('.generate-btn');
     const spinner = document.querySelector('.spinner');
     const btnText = document.querySelector('.btn-text');
   
-    btn.disabled = true;
-    btnText.style.opacity = '0.5';
-    spinner.style.display = 'block';
-  
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      btn.disabled = true;
+      btnText.style.visibility = 'hidden';
+      spinner.style.display = 'block';
+  
+
+
+      const response = await fetch('http://localhost:3000/generate-playlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          genre,
+          artist,
+          mood
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
       
-      // Replace with actual API call
-      const playlistUrl = 'https://youtube.com/playlist?list=...';
-      alert('Playlist generated successfully!');
-      window.open(playlistUrl, '_blank');
+      if (data.playlistUrl) {
+        window.open(data.playlistUrl, '_blank');
+      } else {
+        showError('Failed to generate playlist. Please try again.');
+      }
     } catch (error) {
-      alert('Error generating playlist: ' + error.message);
+      console.error('Error:', error);
+      showError('An error occurred. Please try again later.');
     } finally {
       btn.disabled = false;
-      btnText.style.opacity = '1';
+      btnText.style.visibility = 'visible';
       spinner.style.display = 'none';
     }
+  
+    // console.log('Generate Playlist button clicked');
+    // console.log('Genre:', genre, 'Artist:', artist, 'Mood:', mood);
+  }
+  
+  function showError(message) {
+    const errorEl = document.createElement('div');
+    errorEl.className = 'error-message';
+    errorEl.textContent = message;
+    
+    const container = document.querySelector('.container');
+    container.insertBefore(errorEl, document.querySelector('.form-container'));
+    
+    setTimeout(() => errorEl.remove(), 5000);
   }
