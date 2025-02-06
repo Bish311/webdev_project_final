@@ -1,83 +1,83 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Theme Toggle
-    const toggle = document.getElementById('toggle');
-    const body = document.body;
-  
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    body.setAttribute('data-theme', savedTheme);
-    toggle.checked = savedTheme === 'dark';
-  
-    toggle.addEventListener('change', () => {
-      const theme = toggle.checked ? 'dark' : 'light';
-      body.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
-    });
+  // Theme Toggle
+  const toggle = document.getElementById('toggle');
+  const body = document.body;
+
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  body.setAttribute('data-theme', savedTheme);
+  toggle.checked = savedTheme === 'dark';
+
+  toggle.addEventListener('change', () => {
+    const theme = toggle.checked ? 'dark' : 'light';
+    body.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
   });
-  
-  async function generatePlaylist() {
-    const genre = document.getElementById('genre').value;
-    const artist = document.getElementById('artist').value;
-    const mood = document.getElementById('mood').value;
-  
-    if (!genre && !artist && !mood) {
+});
+
+async function generatePlaylist() {
+  const genre = document.getElementById('genre').value;
+  const artist = document.getElementById('artist').value;
+  const mood = document.getElementById('mood').value;
+
+  const inputs = document.querySelectorAll('.form-input');
+  inputs.forEach(input => input.classList.remove('invalid'));
+
+  if (!genre && !artist && !mood) {
       showError('Please fill in at least one field');
+      inputs.forEach(input => input.classList.add('invalid'));
       return;
-    }
-  
-    const btn = document.querySelector('.generate-btn');
-    const spinner = document.querySelector('.spinner');
-    const btnText = document.querySelector('.btn-text');
-  
-    try {
+  }
+
+  const btn = document.querySelector('.generate-btn');
+  const spinner = document.querySelector('.spinner');
+  const btnText = document.querySelector('.btn-text');
+
+  try {
       btn.disabled = true;
       btnText.style.visibility = 'hidden';
       spinner.style.display = 'block';
   
-
-
       const response = await fetch('http://localhost:3000/generate-playlist', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          genre,
-          artist,
-          mood
-        })
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ genre, artist, mood })
       });
   
+      const textResponse = await response.text();
+      const data = textResponse ? JSON.parse(textResponse) : {};
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(data.error || `HTTP error! status: ${response.status}`);
       }
-  
-      const data = await response.json();
       
       if (data.playlistUrl) {
-        window.open(data.playlistUrl, '_blank');
+          window.open(data.playlistUrl, '_blank');
       } else {
-        showError('Failed to generate playlist. Please try again.');
+          showError('Failed to generate playlist. Please try again.');
       }
-    } catch (error) {
+  } catch (error) {
       console.error('Error:', error);
-      showError('An error occurred. Please try again later.');
-    } finally {
+      showError(error.message, data.suggestions || []);
+  } finally {
       btn.disabled = false;
       btnText.style.visibility = 'visible';
       spinner.style.display = 'none';
-    }
-  
-    // console.log('Generate Playlist button clicked');
-    // console.log('Genre:', genre, 'Artist:', artist, 'Mood:', mood);
   }
+}
+
+function showError(message, suggestions = []) {
+  const errorEl = document.createElement('div');
+  errorEl.className = 'error-message';
+  errorEl.innerHTML = `
+      <div>${message}</div>
+      ${suggestions.length ? `
+      <ul class="suggestions">
+          ${suggestions.map(s => `<li>${s}</li>`).join('')}
+      </ul>` : ''}
+  `;
   
-  function showError(message) {
-    const errorEl = document.createElement('div');
-    errorEl.className = 'error-message';
-    errorEl.textContent = message;
-    
-    const container = document.querySelector('.container');
-    container.insertBefore(errorEl, document.querySelector('.form-container'));
-    
-    setTimeout(() => errorEl.remove(), 5000);
-  }
+  const container = document.querySelector('.container');
+  container.insertBefore(errorEl, document.querySelector('.form-container'));
+  
+  setTimeout(() => errorEl.remove(), 5000);
+}
