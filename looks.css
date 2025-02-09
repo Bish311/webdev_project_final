@@ -25,7 +25,7 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif; /* Changed font family */
+  font-family: "Poppins", sans-serif; 
   background: var(--background);
   color: var(--text);
   min-height: 100vh;
@@ -119,11 +119,11 @@ h1 {
   position: relative;
   display: inline-block;
   margin-bottom: 0.5rem;
-  transition: color 0.3s ease; /* Added transition */
+  transition: color 0.3s ease; 
 }
 
 h1:hover {
-  color: var(--secondary); /* Added hover effect */
+  color: var(--secondary); 
 }
 
 .subtitle {
@@ -131,7 +131,7 @@ h1:hover {
   opacity: 0.8;
   font-size: 1rem;
   letter-spacing: 0.5px;
-  animation: subtitleFadeIn 1s ease-out 0.2s backwards; /* Added animation */
+  animation: subtitleFadeIn 1s ease-out 0.2s backwards; 
 }
 
 @keyframes subtitleFadeIn {
@@ -148,7 +148,7 @@ h1:hover {
 .input-group {
   position: relative;
   margin-bottom: 2rem;
-  animation: inputSlideIn 0.5s ease-out; /* Changed animation */
+  animation: inputSlideIn 0.5s ease-out;
   animation-fill-mode: both;
 }
 
@@ -182,7 +182,7 @@ h1:hover {
   color: var(--text);
   font-size: 1rem;
   transition: all 0.3s;
-  text-align: left; /* Changed to left alignment */
+  text-align: left; 
 }
 
 .form-input:focus {
@@ -239,7 +239,7 @@ label {
   justify-content: center;
   gap: 0.8rem;
   transition: all 0.3s ease;
-  animation: buttonPop 0.4s ease-out; /* Added animation */
+  animation: buttonPop 0.4s ease-out; 
 }
 
 @keyframes buttonPop {
@@ -263,6 +263,15 @@ label {
   transform: translateY(0);
 }
 
+.btn-text {
+  visibility: visible;
+  transition: visibility 0.3s;
+}
+
+.generate-btn.loading .btn-text {
+  visibility: hidden;
+}
+
 .spinner {
   width: 18px;
   height: 18px;
@@ -271,18 +280,35 @@ label {
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
 }
 
 @keyframes spin {
   to {
-    transform: rotate(360deg);
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
   }
 }
 
+.generate-btn.loading .spinner {
+  display: block;
+  will-change: transform;
+}
+
+.generate-btn.loading {
+  animation: none;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+
+
 .theme-toggle {
-  position: absolute; /* Changed to absolute */
-  top: 60px; /* Added top spacing */
-  right: 120px; /* Added right spacing */
+  position: absolute;
+  top: 60px; 
+  right: 120px; 
   z-index: 1000;
   animation: toggleFadeIn 0.6s ease-out;
 }
