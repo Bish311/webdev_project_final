@@ -1,254 +1,378 @@
 :root {
-    --primary: #FF6B35;       /* Vibrant Orange */
-    --secondary: #FF4D8D;     /* Modern Pink */
-    --accent: #2B2B2B;        /* Dark Grey */
-    --background: #F5F5F5;    /* Light Grey */
-    --text: #333333;          /* Dark Text */
-    --surface: #FFFFFF;       /* White */
-    --bdrclr: rgba(40, 40, 43, 0.4);
+  --primary: #6366f1; /* Indigo */
+  --secondary: #ea580c; /* Orange-500 */
+  --accent: #475569; /* Slate-600 */
+  --background: #f1f5f9; /* Slate-100 */
+  --text: #0f172a; /* Slate-900 */
+  --surface: #ffffff; /* White */
+  --error: #ef4444; /* Red */
+  --bdrclr: rgba(40, 40, 43, 0.1);
+}
+
+[data-theme="dark"] {
+  --background: #0f172a; /* Slate 900 */
+  --text: #f1f5f9; /* Slate 100 */
+  --surface: #1e293b; /* Slate 800 */
+  --accent: #334155; /* Slate 700 */
+  --bdrclr: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+}
+
+body {
+  font-family: "Poppins", sans-serif; /* Changed font family */
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.background-texture {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 90% 10%,
+      rgba(234, 88, 12, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 10% 90%,
+      rgba(234, 88, 12, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(234, 88, 12, 0.1) 0%,
+      transparent 50%
+    );
+  opacity: 0.3;
+  z-index: -1;
+  animation: gradientMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%;
   }
-  
-  [data-theme="dark"] {
-    --background: #1A1A1A;    /* Dark Background */
-    --text: #FFFFFF;          /* White Text */
-    --surface: #2B2B2B;       /* Dark Surface */
-    --accent: #404040;        /* Dark Accent */
-    --bdrclr: rgba(255,255,255,0.2);
+  100% {
+    background-position: 100% 100%;
   }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.container {
+  background: var(--surface);
+  padding: 3rem;
+  border-radius: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 540px;
+  margin: 2rem;
+  position: relative;
+  border: 1px solid var(--bdrclr);
+  animation: containerFadeIn 0.6s ease-out;
+}
+
+@keyframes containerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  body {
-    font-family: 'Space Grotesk', sans-serif;
-    background: var(--background);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 1.6;
-  }
-  
-  .background-texture {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-    opacity: 0.05;
-    z-index: -1;
-  }
-  
-  .container {
-    background: var(--surface);
-    padding: 2.5rem;
-    border-radius: 24px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 500px;
-    margin: 2rem;
-    position: relative;
-    border: 1px solid var(--bdrclr);
-  }
-  
-  .header {
-    text-align: center;
-    margin-bottom: 2.5rem;
-  }
-  
-  h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: var(--primary);
-    position: relative;
-    display: inline-block;
-    margin-bottom: 0.5rem;
-  }
-  
-  .ai-badge {
-    font-size: 0.8rem;
-    background: var(--secondary);
-    color: white;
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    margin-left: 0.5rem;
-    vertical-align: super;
-  }
-  
-  .subtitle {
-    color: var(--secondary);
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-  }
-  
-  .input-group {
-    position: relative;
-    margin-bottom: 1.8rem;
-  }
-  
-  .form-input {
-    width: 100%;
-    padding: 1.2rem;
-    border: 2px solid var(--accent);
-    border-radius: 12px;
-    background: transparent;
-    color: var(--text);
-    font-size: 1rem;
-    transition: border-color 0.3s;
-  }
-  
-  .form-input:focus {
-    outline: none;
-    border-color: var(--primary);
-  }
-  
-  .form-input:placeholder-shown + label {
-    transform: translate(1rem, 1.2rem);
-    pointer-events: none;
-  }
-  
-  label {
-    position: absolute;
-    left: 1rem;
-    top: 0.8rem;
-    background: var(--surface);
-    padding: 0 0.5rem;
-    color: var(--text);
-    font-size: 0.9rem;
-    transition: all 0.3s;
-    opacity: 0.8;
-  }
-  
-  .form-input:focus + label,
-  .form-input:not(:placeholder-shown) + label {
-    transform: translateY(-1.4rem);
-    font-size: 0.8rem;
+  to {
     opacity: 1;
-    color: var(--primary);
+    transform: translateY(0);
   }
-  
-  .input-highlight {
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--secondary);
-    transition: width 0.3s;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: headerSlideDown 0.8s ease-out;
+}
+
+@keyframes headerSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  
-  .form-input:focus ~ .input-highlight {
-    width: 100%;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .generate-btn {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    padding: 1.2rem 2rem;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease; /* Added transition */
+}
+
+h1:hover {
+  color: var(--secondary); /* Added hover effect */
+}
+
+.subtitle {
+  color: var(--text);
+  opacity: 0.8;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  animation: subtitleFadeIn 1s ease-out 0.2s backwards; /* Added animation */
+}
+
+@keyframes subtitleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  .generate-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+  to {
+    opacity: 0.8;
+    transform: translateY(0);
   }
-  
-  .spinner {
-    width: 20px;
-    height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    display: none;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 2rem;
+  animation: inputSlideIn 0.5s ease-out; /* Changed animation */
+  animation-fill-mode: both;
+}
+
+.input-group:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.input-group:nth-child(2) {
+  animation-delay: 0.3s;
+}
+.input-group:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes inputSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
   }
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
-  
+}
+
+.form-input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  font-size: 1rem;
+  transition: all 0.3s;
+  text-align: left; /* Changed to left alignment */
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  transform: translateY(-1px);
+}
+
+textarea.form-input {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.form-input:placeholder-shown + label {
+  transform: translate(1rem, 1rem);
+  background: transparent;
+}
+
+label {
+  position: absolute;
+  left: 0.5rem;
+  top: -0.5rem;
+  background: var(--surface);
+  padding: 0 0.5rem;
+  color: var(--text);
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  opacity: 0.8;
+}
+
+.form-input:focus + label,
+.form-input:not(:placeholder-shown) + label {
+  transform: translateY(-0.5rem);
+  font-size: 0.8rem;
+  color: var(--primary);
+  opacity: 1;
+}
+
+.generate-btn {
+  background: var(--secondary);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+  animation: buttonPop 0.4s ease-out; /* Added animation */
+}
+
+@keyframes buttonPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.generate-btn:active {
+  transform: translateY(0);
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.theme-toggle {
+  position: absolute; /* Changed to absolute */
+  top: 60px; /* Added top spacing */
+  right: 120px; /* Added right spacing */
+  z-index: 1000;
+  animation: toggleFadeIn 0.6s ease-out;
+}
+
+@keyframes toggleFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(20px, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--bdrclr);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.toggle-label:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-input {
+  display: none;
+}
+
+.toggle-label .sun,
+.toggle-label .moon {
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.toggle-label .moon {
+  display: none;
+}
+
+[data-theme="dark"] .toggle-label .sun {
+  display: none;
+}
+
+[data-theme="dark"] .toggle-label .moon {
+  display: block;
+}
+
+.error-message {
+  background: var(--error);
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  animation: errorSlideIn 0.3s ease-out;
+}
+
+@keyframes errorSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
   .theme-toggle {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 1rem;
+    right: 1rem;
+    transform: none;
   }
-  
-  .toggle-input {
-    display: none;
+
+  .container {
+    padding: 2rem;
+    margin: 1rem;
   }
-  
-  .toggle-label {
-    cursor: pointer;
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
+
+  h1 {
+    font-size: 2rem;
   }
-  
-  .theme-toggle {
-    position: fixed;
-    top: 45px;
-    right: 120px;
-    z-index: 1000;
-  }
-  
-  .toggle-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    border: 1px solid var(--bdrclr);
-  }
-  
-  .toggle-label .sun,
-  .toggle-label .moon {
-    font-size: 1.5rem;
-    transition: opacity 0.3s ease;
-  }
-  
-  .toggle-label .moon {
-    display: none;
-  }
-  
-  [data-theme="dark"] .toggle-label .sun {
-    display: none;
-    
-  }
-  
-  [data-theme="dark"] .toggle-label .moon {
-    display: block;
-  }
-  
-  /* Keep existing toggle functionality */
-  .toggle-input {
-    display: none;
-  }
-  
-  @media (max-width: 480px) {
-    .container {
-      padding: 1.8rem;
-    }
-    
-    h1 {
-      font-size: 2.2rem;
-    }
-  }
+}

@@ -1,64 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harmony - AI Playlist Generator</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap">
-  <link rel="stylesheet" href="looks.css">
-</head>
-<body>
-  <div class="background-texture"></div>
-  
-  <div class="theme-toggle">
-    <input type="checkbox" id="toggle" class="toggle-input">
-    <label for="toggle" class="toggle-label">
-      <span class="sun">🌞</span>
-      <span class="moon">🌜</span>
-    </label>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Architect - AI Music Curator</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="looks.css" />
+  </head>
+  <body>
+    <div class="background-texture"></div>
 
-  <div class="container">
-    <!-- <div class="theme-toggle">
-      <input type="checkbox" id="toggle" class="toggle-input">
-      <label for="toggle" class="toggle-label">
+    <div class="theme-toggle">
+      <input type="checkbox" id="theme-switch" class="toggle-input" />
+      <label for="theme-switch" class="toggle-label">
         <span class="sun">☀️</span>
-        <span class="moon">🌙</span>
+        <span class="moon">🌑</span>
       </label>
-    </div> -->
-
-    <header class="header">
-      <h1>Harmony<span class="ai-badge">AI</span></h1>
-      <p class="subtitle">Craft Your Perfect Soundtrack</p>
-    </header>
-
-    <div class="form-container">
-      <div class="input-group">
-        <input type="text" id="genre" placeholder=" " class="form-input">
-        <label for="genre">Music Genre</label>
-        <div class="input-highlight"></div>
-      </div>
-
-      <div class="input-group">
-        <input type="text" id="artist" placeholder=" " class="form-input">
-        <label for="artist">Artist Inspiration</label>
-        <div class="input-highlight"></div>
-      </div>
-
-      <div class="input-group">
-        <textarea id="mood" placeholder=" " class="form-input"></textarea>
-        <label for="mood">Describe Your Vibe</label>
-        <div class="input-highlight"></div>
-      </div>
-
-      <button class="generate-btn" onclick="generatePlaylist()">
-        <span class="btn-text">Generate Playlist</span>
-        <div class="spinner"></div>
-      </button>
     </div>
-  </div>
 
-  <script src="app.js"></script>
-  <!-- <script src="server.js"></script>   -->
-</body>
+    <main class="container">
+      <header class="header">
+        <h1>Audio Architect</h1>
+        <p class="subtitle">Discover Your Perfect Playlist</p>
+      </header>
+
+      <form class="form-container">
+        <div class="input-group">
+          <input type="text" id="genre" placeholder=" " class="form-input" />
+          <label for="genre">Music Genre</label>
+          <div class="input-highlight"></div>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="artist" placeholder=" " class="form-input" />
+          <label for="artist">Artist Inspiration</label>
+          <div class="input-highlight"></div>
+        </div>
+
+        <div class="input-group">
+          <textarea id="mood" placeholder=" " class="form-input" rows="3"></textarea>
+          <label for="mood">Describe Your Vibe</label>
+          <div class="input-highlight"></div>
+        </div>
+
+        <button type="button" class="generate-btn" onclick="generatePlaylist()">
+          <span class="btn-text">Create My Playlist</span>
+          <div class="spinner"></div>
+        </button>
+      </form>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
 </html>
