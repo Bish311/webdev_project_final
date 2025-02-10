@@ -47,8 +47,8 @@ Audio Architect is a web application that leverages AI to generate personalized 
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/[your-username]/audio-architect.git
-    cd audio-architect
+    git clone https://github.com/Bish311/webdev_project_final.git
+    cd webdev_project_final
     ```
 
 2.  **Install dependencies:**
